@@ -8,6 +8,7 @@ import { Revenue } from '@/app/lib/definitions';
 // https://www.tremor.so/
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
+// Uncomment this file as instructed in the tutorial.
 
 export default async function RevenueChart({
   revenue,
