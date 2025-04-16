@@ -107,4 +107,19 @@ export async function updateInvoice(
   redirect('/dashboard/invoices');
 }
 
+export async function deleteInvoice(id: string) {
+  try {
+    // Delete the invoice from the database
+    await sql`
+      DELETE FROM invoices
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+    return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
 
+  // Revalidate the cache for the invoices page and redirect the user.
+  revalidatePath('/dashboard/invoices');
+  redirect('/dashboard/invoices');
+}
