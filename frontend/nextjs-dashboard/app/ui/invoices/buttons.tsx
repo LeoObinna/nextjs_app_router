@@ -1,3 +1,5 @@
+"use client";
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteInvoice } from '@/app/lib/actions';
@@ -26,12 +28,14 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
-  const deleteInvoiceWithId = deleteInvoice.bind(null, id);
+  const handleDelete = async (event: React.FormEvent) => {
+    event.preventDefault();
+    await deleteInvoice(id);
+    // Optionally, refresh data or show feedback
+  };
 
   return (
-    <form action={async (formData: FormData) => {
-      await deleteInvoiceWithId();
-    }}>
+    <form onSubmit={handleDelete}>
       <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
